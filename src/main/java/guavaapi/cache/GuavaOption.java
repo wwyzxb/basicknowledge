@@ -2,7 +2,7 @@ package guavaapi.cache;
 
 import com.google.common.base.Optional;
 
-public class GuavaTest {
+public class GuavaOption {
     public static void jdkPlusMethod() {
         Integer a = null;
         Integer b = new Integer(10);
