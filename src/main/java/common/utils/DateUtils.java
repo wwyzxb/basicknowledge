@@ -14,7 +14,11 @@ public class DateUtils {
      * @param second
      * @return
      */
-    public static String convertSecondToHHmmss(int second) {
+    public static String convertSecondToHHmmss(long second) {
+        long maxValue = 24 * 60 * 60 - 1;
+        if (second > maxValue) {
+            second = maxValue;
+        }
         long ms = second * 1000;
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         //设置时区，跳过此步骤会默认设置为"GMT+08:00" 得到的结果会多出来8个小时
@@ -23,6 +27,6 @@ public class DateUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(convertSecondToHHmmss(76));
+        System.out.println(convertSecondToHHmmss(8640));
     }
 }

@@ -32,7 +32,7 @@ public class GuavaCache2 {
 
     public void testDataCache() {
         long startTime = System.currentTimeMillis();
-        for (int j = 0; j < 1; j++) {
+        for (int j = 0; j < 1000; j++) {
             for (int i = 1; i <= 10; i++) {
                 try {
                     cache.get(i);
@@ -47,7 +47,7 @@ public class GuavaCache2 {
 
     public void testDateNoneCache() {
         long startTime = System.currentTimeMillis();
-        for (int j = 0; j < 1; j++) {
+        for (int j = 0; j < 1000; j++) {
             for (int i = 1; i <= 10; i++) {
                 getStudentInfoFromDb(i);
             }
