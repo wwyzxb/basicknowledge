@@ -1,4 +1,4 @@
-package javase.concurrency.demo;
+package javase.concurrency.threadlocal;
 
 /**
  * @Author Vincent

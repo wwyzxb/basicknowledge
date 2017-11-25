@@ -15,7 +15,7 @@ import java.util.Random;
 public class SessionTrackServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String title = "Servlet session demo!";
+        String title = "Servlet session threadlocal!";
         //如果session不存在则创建session对象
         HttpSession session = req.getSession(true);
         //session创建时间
