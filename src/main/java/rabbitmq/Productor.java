@@ -1,9 +1,15 @@
 package rabbitmq;
 
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.DefaultConsumer;
+import com.rabbitmq.client.Envelope;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.UUID;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -59,6 +65,34 @@ public class Productor {
         //第二个字段就是路由键,而空字符串则表示默认的交换机，
         //如果交换机为空字符串，则表示使用默认交换机。其好处就是每一个被创建的队列都会被自动的绑定到默认交换机上，并且路由键就是队列的名字。
         channel.basicPublish( "notice", "", null, "hahahahaha".getBytes());
+    }
+
+
+    @Test
+    public void produce4() throws IOException{
+        Channel channel=RabbitConnection.getConnection().createChannel();
+        final String corrId = UUID.randomUUID().toString();
+        String replyQueueName = channel.queueDeclare().getQueue();
+
+        AMQP.BasicProperties props = new AMQP.BasicProperties
+                .Builder()
+                .correlationId(corrId)//可以用于在客户端之间标记或者标识消息的client-specific标识
+                .replyTo(replyQueueName)//通常用于命名应答队列
+                .build();
+        channel.basicPublish("cancel_exchange_name", "", props, "hahahahaahahhah".getBytes("UTF-8"));
+        //使用一个阻塞队列
+        final BlockingQueue<String> response = new ArrayBlockingQueue<String>(1);
+        //消费者
+        channel.basicConsume(replyQueueName, true, new DefaultConsumer(channel) {
+            @Override
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                if (properties.getCorrelationId().equals(corrId)) {
+                    //向阻塞队列中添加消息
+                    response.offer(new String(body, "UTF-8"));
+                }
+            }
+        });
+
     }
 
 }
