@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class GuavaCache {
     private final static int MAX_SIZE = 2;//缓存大小
-    private final static int EXPIRE_TIME = 10;//失效时间
+    private final static int EXPIRE_TIME = 5;//失效时间
     private static Map<Integer, Student> database = Maps.newHashMap();
     private static LoadingCache<Integer, Student> cache;
 
@@ -37,7 +37,7 @@ public class GuavaCache {
     }
 
     private static void initCacheLoader() {
-        cache = CacheBuilder.newBuilder().maximumSize(MAX_SIZE).expireAfterAccess(EXPIRE_TIME, TimeUnit.MINUTES).build(new CacheLoader<Integer, Student>() {
+        cache = CacheBuilder.newBuilder().maximumSize(MAX_SIZE).expireAfterWrite(EXPIRE_TIME, TimeUnit.SECONDS).build(new CacheLoader<Integer, Student>() {
             @Override
             public Student load(Integer id) throws Exception {
                 return getFromDatabase(id);
@@ -59,6 +59,7 @@ public class GuavaCache {
             System.out.println(cache.get(1));
             System.out.println(cache.get(2));
             System.out.println(cache.get(3));
+            System.out.println(cache.get(10));
         } catch (ExecutionException ex) {
             ex.printStackTrace();
         }

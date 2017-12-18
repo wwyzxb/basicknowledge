@@ -18,7 +18,7 @@ public class GuavaCache2 {
     private StudentService studentService;
 
     public void init() {
-        cache = CacheBuilder.newBuilder().maximumSize(10).expireAfterAccess(10, TimeUnit.MINUTES).build(new CacheLoader<Integer, Student>() {
+        cache = CacheBuilder.newBuilder().maximumSize(10).expireAfterAccess(10, TimeUnit.MINUTES).recordStats().build(new CacheLoader<Integer, Student>() {
             @Override
             public Student load(Integer id) throws Exception {
                 return getStudentInfoFromDb(id);
@@ -43,6 +43,7 @@ public class GuavaCache2 {
         }
         long endTime = System.currentTimeMillis();
         System.out.println("Data from cache:" + (endTime - startTime) + "ms");
+        System.out.println(cache.stats().toString());
     }
 
     public void testDateNoneCache() {
