@@ -7,7 +7,6 @@ import com.google.common.collect.Maps;
 import common.db.jpa.model.Student;
 
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,7 +19,7 @@ public class GuavaCache {
     private final static int MAX_SIZE = 2;//缓存大小
     private final static int EXPIRE_TIME = 5;//失效时间
     private static Map<Integer, Student> database = Maps.newHashMap();
-    private static LoadingCache<Integer, Student> cache;
+    private  LoadingCache<Integer, Student> cache;
 
     public static void initData() {
         Student student1 = new Student(1, "No.001", "Jone", "male", "18623099572", "ChongQing");
@@ -36,7 +35,7 @@ public class GuavaCache {
         database.put(student5.getId(), student5);
     }
 
-    private static void initCacheLoader() {
+    private  void initCacheLoader() {
         cache = CacheBuilder.newBuilder().maximumSize(MAX_SIZE).expireAfterWrite(EXPIRE_TIME, TimeUnit.SECONDS).build(new CacheLoader<Integer, Student>() {
             @Override
             public Student load(Integer id) throws Exception {
@@ -48,21 +47,5 @@ public class GuavaCache {
 
     private static Student getFromDatabase(Integer id) {
         return database.get(id);
-    }
-
-    public static void main(String[] args) {
-        initData();
-        initCacheLoader();
-        try {
-            //1.可以自动载入键值至缓存，比如调用了cache.get("1")之后结果就会缓存起来
-            //2.当缓存器溢出时，采用最近最少使用原则进行替换
-            System.out.println(cache.get(1));
-            System.out.println(cache.get(2));
-            System.out.println(cache.get(3));
-            System.out.println(cache.get(10));
-        } catch (ExecutionException ex) {
-            ex.printStackTrace();
-        }
-
     }
 }
