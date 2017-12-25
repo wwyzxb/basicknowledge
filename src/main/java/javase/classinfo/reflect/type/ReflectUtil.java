@@ -1,4 +1,4 @@
-package reflect;
+package javase.classinfo.reflect.type;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;

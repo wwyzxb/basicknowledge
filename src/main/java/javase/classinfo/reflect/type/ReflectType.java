@@ -1,4 +1,4 @@
-package reflect;
+package javase.classinfo.reflect.type;
 
 import utils.CommonUtils;
 

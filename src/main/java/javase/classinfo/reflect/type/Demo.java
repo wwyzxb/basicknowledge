@@ -1,4 +1,4 @@
-package reflect;
+package javase.classinfo.reflect.type;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +21,7 @@ public class Demo {
         ClassType obj = new ClassType();
         Class clazz2 = obj.getClass();
         //3.运用static method Class.forName()
-        Class clazz3 = Class.forName("reflect.ClassType");
+        Class clazz3 = Class.forName("javase.classinfo.reflect.type.ClassType");
         //4.运用primitive wrapper classes的TYPE 语法（针对基本数据类型）
         Class clazz4 = Integer.TYPE;
         System.out.println(clazz1 == clazz2);
