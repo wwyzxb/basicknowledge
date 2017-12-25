@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * 获取Class对象的4种方法
@@ -16,12 +17,12 @@ import java.lang.reflect.Method;
 public class Demo {
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException {
         //1.运用T.class 语法(T是任意的Java类型)
-        Class clazz1 = ClassType.class;
+        Class clazz1 = ClassDemo.class;
         //2.调用getClass()（Object类中的getClass()方法返回一个Class类型的实例）
-        ClassType obj = new ClassType();
+        ClassDemo obj = new ClassDemo();
         Class clazz2 = obj.getClass();
         //3.运用static method Class.forName()
-        Class clazz3 = Class.forName("javase.classinfo.reflect.type.ClassType");
+        Class clazz3 = Class.forName("javase.classinfo.reflect.type.ClassDemo");
         //4.运用primitive wrapper classes的TYPE 语法（针对基本数据类型）
         Class clazz4 = Integer.TYPE;
         System.out.println(clazz1 == clazz2);
@@ -53,6 +54,7 @@ public class Demo {
         Method[] methods = clazz1.getMethods();
         log.info("获得public方法：");
         for (Method method : methods) {
+            System.out.println(method.getModifiers());
             System.out.println(method.getName());
             System.out.println(method.getParameterTypes());
         }
@@ -66,7 +68,17 @@ public class Demo {
         Constructor constructor = clazz1.getDeclaredConstructor(new Class[]{String.class, String.class, String.class, String.class});
         System.out.println(constructor);
 
-        System.out.println(ClassType.class.isInstance(new ClassType()));
+        System.out.println(ClassDemo.class.isInstance(new ClassDemo()));
+
+        //获得所有声明的字段
+        Field[] fields2=clazz1.getDeclaredFields();
+        System.out.println(Arrays.asList(fields2));
+        //获得所有声明的方法
+        Method[] methods2=clazz1.getDeclaredMethods();
+        System.out.println(Arrays.asList(methods2));
+        //获得所有声明的构造器
+        Constructor[] constructors=clazz1.getDeclaredConstructors();
+        System.out.println(Arrays.asList(constructors));
 
 
 

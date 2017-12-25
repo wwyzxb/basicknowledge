@@ -8,7 +8,7 @@ import java.util.List;
  * @Author: wuxiaobing
  * @Date 2017/12/25
  **/
-public class ClassType {
+public class ClassDemo {
 
     public String publicVal1;
     public String publicVal2;
@@ -17,17 +17,17 @@ public class ClassType {
     private List<String> list1;
     private List<Integer> list12;
 
-    public ClassType() {
+    public ClassDemo() {
 
     }
 
-    public ClassType(String val1, String val2, String val3) {
+    public ClassDemo(String val1, String val2, String val3) {
         this.publicVal1 = val1;
         this.publicVal2 = val2;
         this.privateVal1 = val3;
     }
 
-    private ClassType(String val1, String val2, String val3, String val4) {
+    private ClassDemo(String val1, String val2, String val3, String val4) {
         this(val1, val2, val3);
         this.privateVal2 = val4;
     }
@@ -49,7 +49,7 @@ public class ClassType {
     }
 
     public static void main(String[] args){
-        Class clazz=ClassType.class;
+        Class clazz=ClassDemo.class;
         Field[] fields=clazz.getDeclaredFields();
         for(Field field:fields){
             if(field.getGenericType() instanceof ParameterizedType){
