@@ -31,6 +31,9 @@ public class ReflectType<K extends Serializable & Cloneable> {
 
     /**
      * ParameterizedType(参数化类型),代表整个泛型
+     * 1.Type[] getActualTypeArguments();--返回表示此类型实际类型参数的 Type 对象的数组
+     * 2.Type getRawType();--返回 Type 对象，表示声明此类型的类或接口
+     * 3.Type getOwnerType();--返回 Type 对象，表示此类型是其成员之一的类型
      *
      * @throws NoSuchFieldException
      */
@@ -47,11 +50,15 @@ public class ReflectType<K extends Serializable & Cloneable> {
             }
         }
         ParameterizedType type1 = (ParameterizedType) clazz.getDeclaredField("entry").getGenericType();
-        CommonUtils.print("OwnerType---->" + type1.getOwnerType().getTypeName());
+        CommonUtils.print("OwnerType---->" + type1.getRawType());
     }
 
     /**
      * TypeVariable(类型变量),代表泛型中变量的类型
+     * 1.Type[] getBounds();--获得该类型变量的上限
+     * 2.D getGenericDeclaration();--获取声明该类型变量实体(即申明泛型的地方，为一个Class, Constructor或 Method)
+     * 3.String getName();--获取类型变量在源码中定义的名称
+     * 4.AnnotatedType[] getAnnotatedBounds();
      *
      * @throws NoSuchFieldException
      * @throws NoSuchMethodException
@@ -81,6 +88,7 @@ public class ReflectType<K extends Serializable & Cloneable> {
 
     /**
      * 泛型数组类型
+     * 1.Type getGenericComponentType();--返回泛型数组中元素的Type类型
      *
      * @throws NoSuchFieldException
      */
@@ -89,12 +97,15 @@ public class ReflectType<K extends Serializable & Cloneable> {
         if (type instanceof GenericArrayType) {
             GenericArrayType genericArrayType = (GenericArrayType) type;
             //返回泛型数组中元素的Type类型
+            CommonUtils.print("GenericComponentType---->");
             CommonUtils.print(genericArrayType.getGenericComponentType());
         }
     }
 
     /**
      * 通配的泛型
+     * 1.Type[] getUpperBounds();--获得泛型的上边界
+     * 2.Type[] getLowerBounds();--获得泛型的下边界
      *
      * @throws NoSuchFieldException
      */
