@@ -1,5 +1,9 @@
 package reflect;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
+
 /**
  * @Author: wuxiaobing
  * @Date 2017/12/25
@@ -10,6 +14,8 @@ public class ClassType {
     public String publicVal2;
     private String privateVal1;
     private String privateVal2;
+    private List<String> list1;
+    private List<Integer> list12;
 
     public ClassType() {
 
@@ -39,6 +45,17 @@ public class ClassType {
     }
 
     private void privateMethod2() {
+
+    }
+
+    public static void main(String[] args){
+        Class clazz=ClassType.class;
+        Field[] fields=clazz.getDeclaredFields();
+        for(Field field:fields){
+            if(field.getGenericType() instanceof ParameterizedType){
+               System.out.println(((ParameterizedType) field.getGenericType()).getRawType().getTypeName());
+            }
+        }
 
     }
 
