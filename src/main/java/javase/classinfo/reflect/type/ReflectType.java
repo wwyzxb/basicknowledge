@@ -50,7 +50,7 @@ public class ReflectType<K extends Serializable & Cloneable> {
             }
         }
         ParameterizedType type1 = (ParameterizedType) clazz.getDeclaredField("entry").getGenericType();
-        CommonUtils.print("OwnerType---->" + type1.getRawType());
+        CommonUtils.print("OwnerType---->" + type1.getOwnerType());
     }
 
     /**
@@ -115,7 +115,7 @@ public class ReflectType<K extends Serializable & Cloneable> {
             ParameterizedType genericArrayType = (ParameterizedType) type1;
             //获得通配符类型
             Type[] types = genericArrayType.getActualTypeArguments();
-            CommonUtils.print("UpperBounds---->");
+            CommonUtils.print("LowerBounds---->");
             for (Type type2 : types) {
                 if (type2 instanceof WildcardType) {
                     WildcardType wildcardType = (WildcardType) type2;
@@ -123,7 +123,10 @@ public class ReflectType<K extends Serializable & Cloneable> {
                 }
             }
         }
+    }
 
+    public static void gitTest(){
+        System.out.println("this is a test");
     }
 
     public static void main(String[] args) throws NoSuchFieldException, NoSuchMethodException {
@@ -131,6 +134,7 @@ public class ReflectType<K extends Serializable & Cloneable> {
         testTypeVariable();
         testGenericArrayType();
         testWildcardType();
+        gitTest();
     }
 }
 
