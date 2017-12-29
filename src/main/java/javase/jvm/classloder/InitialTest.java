@@ -17,6 +17,9 @@ public class InitialTest {
                 }
             }
         }
+
+        private static final int a=111;
+        private static int b=222;
     }
 
     public static void main(String[] args) {
@@ -26,6 +29,12 @@ public class InitialTest {
                 System.out.println(Thread.currentThread() + " start");
                 DeadLoopClass dlc = new DeadLoopClass();
                 System.out.println(Thread.currentThread() + " run over");
+                if("Thread-0".equals(Thread.currentThread().getName())){
+                    System.out.println(DeadLoopClass.a);
+                }
+                if("Thread-1".equals(Thread.currentThread().getName())){
+                    System.out.println(DeadLoopClass.b);
+                }
             }
         };
 
