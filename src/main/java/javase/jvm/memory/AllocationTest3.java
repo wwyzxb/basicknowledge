@@ -1,4 +1,4 @@
-package javase.jvm;
+package javase.jvm.memory;
 
 /**
  * @Author Vincent

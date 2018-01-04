@@ -1,4 +1,4 @@
-package javase.jvm;
+package javase.jvm.memory;
 
 import java.util.ArrayList;
 import java.util.List;

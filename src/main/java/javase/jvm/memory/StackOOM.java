@@ -1,4 +1,4 @@
-package javase.jvm;
+package javase.jvm.memory;
 
 public class StackOOM {
     private int stackLength = 1;
