@@ -1,4 +1,4 @@
-package javase.java8.demo;
+package javase.java8.lambda.funinterface;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +20,7 @@ public class PickApples {
 
     }
 
-    public static List<Apple> filterApples(List<Apple> inventory, Predicate<Apple> p) {
+    public List<Apple> filterApples(List<Apple> inventory, Predicate<Apple> p) {
         List<Apple> result = new ArrayList<>();
         for (Apple apple : inventory) {
             if (p.test(apple)) {

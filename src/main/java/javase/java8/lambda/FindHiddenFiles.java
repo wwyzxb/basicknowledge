@@ -1,4 +1,4 @@
-package javase.java8.demo;
+package javase.java8.lambda;
 
 import org.junit.Test;
 
