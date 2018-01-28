@@ -1,9 +1,9 @@
-package designpartten.duck.specificduck;
+package designpartten.strategy.specificduck;
 
-import designpartten.duck.Duck;
-import designpartten.duck.fly.FlyNoWay;
-import designpartten.duck.fly.FlyWithRocket;
-import designpartten.duck.quack.MuteQuack;
+import designpartten.strategy.Duck;
+import designpartten.strategy.fly.FlyNoWay;
+import designpartten.strategy.fly.FlyWithRocket;
+import designpartten.strategy.quack.MuteQuack;
 import org.junit.Test;
 
 /**

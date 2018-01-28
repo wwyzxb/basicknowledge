@@ -1,7 +1,7 @@
-package designpartten.duck;
+package designpartten.strategy;
 
-import designpartten.duck.fly.FlyBehavior;
-import designpartten.duck.quack.QuackBehavior;
+import designpartten.strategy.fly.FlyBehavior;
+import designpartten.strategy.quack.QuackBehavior;
 
 /**
  * @Author Vincent

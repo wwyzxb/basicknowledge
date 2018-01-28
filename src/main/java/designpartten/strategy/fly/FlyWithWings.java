@@ -1,4 +1,4 @@
-package designpartten.duck.fly;
+package designpartten.strategy.fly;
 
 /**
  * @Author Vincent

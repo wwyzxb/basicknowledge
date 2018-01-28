@@ -1,4 +1,4 @@
-package designpartten.duck.quack;
+package designpartten.strategy.quack;
 
 /**
  * @Author Vincent
