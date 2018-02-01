@@ -7,6 +7,6 @@ package designpartten.strategy.fly;
 public class FlyNoWay implements FlyBehavior {
     @Override
     public void fly() {
-        System.out.println("鸭子在天上飞...");
+        System.out.println("不会飞的鸭子...");
     }
 }
