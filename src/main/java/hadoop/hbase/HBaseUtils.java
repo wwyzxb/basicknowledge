@@ -91,18 +91,36 @@ public class HBaseUtils {
         }
     }
 
-    public List<Map<String,String>> getResultByTableAndRowKey(String tableName, String rowKey) {
-        List<Map<String,String>> resultList=new ArrayList<>();
+    /**
+     * 根据表名和rowKey遍历指定表的指定行
+     *
+     * @param tableName
+     * @param rowKey
+     * @return
+     */
+    public List<Map<String, String>> getResultByTableAndRowKey(String tableName, String rowKey) {
+        Table table = getTable(tableName);
+        return getResultFromTableByRowKey(table, rowKey);
+    }
+
+    /**
+     * 遍历指定表的指定行
+     *
+     * @param table
+     * @param rowKey
+     * @return
+     */
+    public List<Map<String, String>> getResultFromTableByRowKey(Table table, String rowKey) {
+        List<Map<String, String>> resultList = new ArrayList<>();
         try {
-            Table table = getTable(tableName);
             Get get = new Get(Bytes.toBytes(rowKey));
             Result result = table.get(get);
             NavigableMap<byte[], NavigableMap<byte[], NavigableMap<Long, byte[]>>> resultMap = result.getMap();
             for (Map.Entry<byte[], NavigableMap<byte[], NavigableMap<Long, byte[]>>> famlEntry : resultMap.entrySet()) {
                 for (Map.Entry<byte[], NavigableMap<Long, byte[]>> qualEntry : famlEntry.getValue().entrySet()) {
                     for (Map.Entry<Long, byte[]> valueEntry : qualEntry.getValue().entrySet()) {
-                        Map<String,String> map=new HashMap<>();
-                        map.put(rowKey + ":<" + Bytes.toString(famlEntry.getKey()) + ":" + Bytes.toString(qualEntry.getKey()) + ">:" + valueEntry.getKey(),Bytes.toString(valueEntry.getValue()));
+                        Map<String, String> map = new HashMap<>();
+                        map.put(rowKey + ":<" + Bytes.toString(famlEntry.getKey()) + ":" + Bytes.toString(qualEntry.getKey()) + ">:" + valueEntry.getKey(), Bytes.toString(valueEntry.getValue()));
                         resultList.add(map);
                     }
                 }
@@ -113,27 +131,12 @@ public class HBaseUtils {
         return resultList;
     }
 
-    public List<Map<String,String>> getResultFromTableByRowKey(Table table, String rowKey) {
-        List<Map<String,String>> resultList=new ArrayList<>();
-        try {
-            Get get = new Get(Bytes.toBytes(rowKey));
-            Result result = table.get(get);
-            NavigableMap<byte[], NavigableMap<byte[], NavigableMap<Long, byte[]>>> resultMap = result.getMap();
-            for (Map.Entry<byte[], NavigableMap<byte[], NavigableMap<Long, byte[]>>> famlEntry : resultMap.entrySet()) {
-                for (Map.Entry<byte[], NavigableMap<Long, byte[]>> qualEntry : famlEntry.getValue().entrySet()) {
-                    for (Map.Entry<Long, byte[]> valueEntry : qualEntry.getValue().entrySet()) {
-                        Map<String,String> map=new HashMap<>();
-                        map.put(rowKey + ":<" + Bytes.toString(famlEntry.getKey()) + ":" + Bytes.toString(qualEntry.getKey()) + ">:" + valueEntry.getKey(),Bytes.toString(valueEntry.getValue()));
-                        resultList.add(map);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return resultList;
-    }
-
+    /**
+     * 删除指定表指定行的数据
+     *
+     * @param tableName
+     * @param rowKey
+     */
     public void delete(String tableName, String rowKey) {
         try {
             Table table = getTable(tableName);
