@@ -241,4 +241,22 @@ public class HBaseAPITest {
         System.out.println("the num of RPCs:" + count);
         resultScanner.close();
     }
+
+    @Test
+    public void testCoounter() throws IOException {
+        byte[] rowKey = Bytes.toBytes("20180202");
+        byte[] family = Bytes.toBytes("daily");
+        byte[] qualifier = Bytes.toBytes("hits");
+
+        Table table = HBaseUtils.getInstance().getTable("counters");
+
+        /**incrementColumnValue方法*/
+        long counterNum = table.incrementColumnValue(rowKey, family, qualifier, 100L);
+        System.out.println(counterNum);
+
+        Increment increment = new Increment(rowKey);
+        increment.addColumn(family, qualifier, 100L);
+
+        System.out.println(HBaseUtils.getInstance().parseResult(TABLE.increment(increment)));
+    }
 }

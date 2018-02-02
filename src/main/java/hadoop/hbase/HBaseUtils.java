@@ -142,6 +142,19 @@ public class HBaseUtils {
     }
 
     /**
+     * 解析HBase返回的result
+     *
+     * @param result
+     * @return
+     */
+    public List<Map<String, String>> parseResult(Result result) {
+        List<Map<String, String>> resultList = new ArrayList<>();
+        NavigableMap<byte[], NavigableMap<byte[], NavigableMap<Long, byte[]>>> resultMap = result.getMap();
+        parseResult(result, resultList);
+        return resultList;
+    }
+
+    /**
      * 删除指定表指定行的数据
      *
      * @param tableName
