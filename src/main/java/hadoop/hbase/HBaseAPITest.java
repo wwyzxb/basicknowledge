@@ -223,7 +223,7 @@ public class HBaseAPITest {
 
     @Test
     public void testScan() throws IOException {
-        int count=0;
+        int count = 0;
         /**设置rowKey的起始位置*/
         Scan scan = new Scan(Bytes.toBytes("No.001"), Bytes.toBytes("No.013"));
         //设置合适的值可以进行缓存和批量处理，从而减少RPC请求
@@ -238,7 +238,7 @@ public class HBaseAPITest {
             System.out.println(scanResults);
             count++;
         }
-        System.out.println("the num of RPCs:"+count);
+        System.out.println("the num of RPCs:" + count);
         resultScanner.close();
     }
 }

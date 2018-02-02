@@ -115,20 +115,30 @@ public class HBaseUtils {
         try {
             Get get = new Get(Bytes.toBytes(rowKey));
             Result result = table.get(get);
-            NavigableMap<byte[], NavigableMap<byte[], NavigableMap<Long, byte[]>>> resultMap = result.getMap();
-            for (Map.Entry<byte[], NavigableMap<byte[], NavigableMap<Long, byte[]>>> famlEntry : resultMap.entrySet()) {
-                for (Map.Entry<byte[], NavigableMap<Long, byte[]>> qualEntry : famlEntry.getValue().entrySet()) {
-                    for (Map.Entry<Long, byte[]> valueEntry : qualEntry.getValue().entrySet()) {
-                        Map<String, String> map = new HashMap<>();
-                        map.put(rowKey + ":<" + Bytes.toString(famlEntry.getKey()) + ":" + Bytes.toString(qualEntry.getKey()) + ">:" + valueEntry.getKey(), Bytes.toString(valueEntry.getValue()));
-                        resultList.add(map);
-                    }
-                }
-            }
+            parseResult(result, resultList);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return resultList;
+    }
+
+    /**
+     * 解析HBase返回的result
+     *
+     * @param result
+     * @param resultList
+     */
+    public void parseResult(Result result, List<Map<String, String>> resultList) {
+        NavigableMap<byte[], NavigableMap<byte[], NavigableMap<Long, byte[]>>> resultMap = result.getMap();
+        for (Map.Entry<byte[], NavigableMap<byte[], NavigableMap<Long, byte[]>>> famlEntry : resultMap.entrySet()) {
+            for (Map.Entry<byte[], NavigableMap<Long, byte[]>> qualEntry : famlEntry.getValue().entrySet()) {
+                for (Map.Entry<Long, byte[]> valueEntry : qualEntry.getValue().entrySet()) {
+                    Map<String, String> map = new HashMap<>();
+                    map.put(Bytes.toString(result.getRow()) + ":<" + Bytes.toString(famlEntry.getKey()) + ":" + Bytes.toString(qualEntry.getKey()) + ">:" + valueEntry.getKey(), Bytes.toString(valueEntry.getValue()));
+                    resultList.add(map);
+                }
+            }
+        }
     }
 
     /**
@@ -145,6 +155,18 @@ public class HBaseUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * 遍历resultScanner并输出结果
+     *
+     * @param resultScanner
+     */
+    public void printTheResultofResultScanner(ResultScanner resultScanner) {
+        List<Map<String, String>> resultList = new ArrayList<>();
+        for (Result result : resultScanner) {
+            parseResult(result, resultList);
+        }
+        System.out.println(resultList);
     }
 }
