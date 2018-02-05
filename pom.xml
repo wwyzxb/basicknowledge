@@ -42,11 +42,6 @@
             <version>4.0.0</version>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>23.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.14</version>
@@ -137,7 +132,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>23.0</version>
+            <version>18.0</version>
         </dependency>
         <!--lombok-->
         <dependency>
@@ -172,13 +167,28 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-client -->
-        <dependency>
+       <!-- <dependency>
             <groupId>org.apache.hbase</groupId>
             <artifactId>hbase-client</artifactId>
             <version>1.3.1</version>
+        </dependency>-->
+
+        <!-- https://mvnrepository.com/artifact/org.apache.phoenix/phoenix-core -->
+        <dependency>
+            <groupId>org.apache.phoenix</groupId>
+            <artifactId>phoenix-core</artifactId>
+            <version>4.11.0-HBase-1.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents</groupId>
+                    <artifactId>httpclient</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
+
     </dependencies>
+
     <build>
         <finalName>basicknowlwdge</finalName>
     </build>
