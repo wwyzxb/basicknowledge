@@ -29,7 +29,6 @@ public class HBaseAPITest {
         Put put = new Put(Bytes.toBytes(rowKey));
         //启用客户端缓存
         table.setAutoFlush(false, true);
-        Map<String, String> data1 = new HashMap<>();
         put.addColumn(Bytes.toBytes("info"), Bytes.toBytes("name"), Bytes.toBytes("LinTT"));
         put.addColumn(Bytes.toBytes("info"), Bytes.toBytes("age"), Bytes.toBytes("27"));
         table.put(put);
@@ -41,7 +40,7 @@ public class HBaseAPITest {
         table.flushCommits();
 
         Result result2 = table.get(get);
-        System.out.println("the results is:" + result1.toString());
+        System.out.println("the results is:" + result2.toString());
     }
 
     /**
@@ -243,7 +242,7 @@ public class HBaseAPITest {
     }
 
     @Test
-    public void testCoounter() throws IOException {
+    public void testCounter() throws IOException {
         byte[] rowKey = Bytes.toBytes("20180202");
         byte[] family = Bytes.toBytes("daily");
         byte[] qualifier = Bytes.toBytes("hits");
@@ -256,7 +255,13 @@ public class HBaseAPITest {
 
         Increment increment = new Increment(rowKey);
         increment.addColumn(family, qualifier, 100L);
-
         System.out.println(HBaseUtils.getInstance().parseResult(TABLE.increment(increment)));
+    }
+
+    @Test
+    public void testPhoenixConnection() {
+        String sql = "select * from CN_NUBIA_NEOSHARE.NEOSHARE_VERSION_LIST;";
+        List<Map<String, String>> result=PhoenixUtils.getInstance().queryData(sql);
+        System.out.println(result);
     }
 }
