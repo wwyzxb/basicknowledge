@@ -54,6 +54,17 @@ public class HBaseUtils {
         return connection;
     }
 
+    public void closeConnection() {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     /**
      * 根据表名来获得表
      *
@@ -149,7 +160,6 @@ public class HBaseUtils {
      */
     public List<Map<String, String>> parseResult(Result result) {
         List<Map<String, String>> resultList = new ArrayList<>();
-        NavigableMap<byte[], NavigableMap<byte[], NavigableMap<Long, byte[]>>> resultMap = result.getMap();
         parseResult(result, resultList);
         return resultList;
     }
