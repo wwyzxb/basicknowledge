@@ -12,6 +12,9 @@ import java.io.FileFilter;
 public class FindHiddenFiles {
     @Test
     public void testHiddenFiles(){
+        /**
+         * 使用了匿名内部类
+         * */
         File[] hiddenFiles=new File(".").listFiles(new FileFilter() {
             @Override
             public boolean accept(File pathname) {

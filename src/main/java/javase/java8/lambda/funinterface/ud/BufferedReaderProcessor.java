@@ -8,6 +8,7 @@ import java.io.IOException;
  * @Author Vincent
  * @Date 2018/1/21 16:51
  */
+@FunctionalInterface
 public interface BufferedReaderProcessor {
     String process(BufferedReader br) throws IOException;
 }

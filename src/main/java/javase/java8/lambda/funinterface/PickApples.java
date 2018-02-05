@@ -15,8 +15,13 @@ import java.util.function.Predicate;
  **/
 public class PickApples {
     static List<Apple> inventory;
+
     static {
-        inventory = Arrays.asList(new Apple("green", 160), new Apple("red", 160), new Apple("green", 150), new Apple("red", 150));
+        inventory = Arrays.asList(
+                new Apple("green", 160),
+                new Apple("red", 160),
+                new Apple("green", 150),
+                new Apple("red", 150));
 
     }
 
@@ -32,20 +37,20 @@ public class PickApples {
 
     /**
      * 将方法作为参数进行传递
-     * */
+     */
     @Test
     public void testFilterApples() {
-        List<Apple> result =filterApples(inventory, Apple::isGreenApple);
-        result=filterApples(result, Apple::isHeavyApple);
+        List<Apple> result = filterApples(inventory, Apple::isGreenApple);
+        result = filterApples(result, Apple::isHeavyApple);
         System.out.println(result);
     }
 
     /**
      * 使用Lambda来代替只会使用到一次的方法
-     * */
+     */
     @Test
-    public void testFilterApplesWithLambda(){
-        List<Apple> result =filterApples(inventory, (Apple a)-> a.getWeight()>150&&"red".equals(a.getColor()));
+    public void testFilterApplesWithLambda() {
+        List<Apple> result = filterApples(inventory, (Apple a) -> a.getWeight() > 150 && "red".equals(a.getColor()));
         System.out.println(result);
     }
 }
