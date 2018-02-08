@@ -5,7 +5,6 @@ package designpartten.decorate;
  * @Date 2018/2/1 23:31
  */
 public class Mocha extends CondimentDecorator {
-    Beverage beverage;
 
     public Mocha(Beverage beverage) {
         this.beverage = beverage;

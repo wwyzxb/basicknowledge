@@ -5,7 +5,6 @@ package designpartten.decorate;
  * @Date 2018/2/1 23:31
  */
 public class Soy extends CondimentDecorator {
-    Beverage beverage;
 
     public Soy(Beverage beverage) {
         this.beverage = beverage;

@@ -13,5 +13,12 @@ public class MainTest {
         System.out.println(soy.getDescription());
         System.out.println(soy.cost());
 
+        Espresso Espresso=new Espresso();
+        Mocha mocha1=new Mocha(Espresso);
+        Soy soy1=new Soy(mocha1);
+
+        System.out.println(soy1.getDescription());
+        System.out.println(soy1.cost());
+
     }
 }
