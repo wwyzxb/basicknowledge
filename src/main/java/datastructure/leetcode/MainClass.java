@@ -25,7 +25,6 @@ public class MainClass {
         // Generate array from the input
         int[] nodeValues = stringToIntegerArray(input);
     
-        // Now convert that list into linked list
         ListNode dummyRoot = new ListNode(0);
         ListNode ptr = dummyRoot;
         for(int item : nodeValues) {
