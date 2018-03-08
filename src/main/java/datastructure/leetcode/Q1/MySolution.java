@@ -1,10 +1,10 @@
-package datastructure.leetcode;
+package datastructure.leetcode.Q1;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Q1 {
-    public static int[] twoSum(int[] nums, int target) {
+public class MySolution {
+    public int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> temp = new HashMap();
         int[] result = null;
         for (int i = 0; i < nums.length; i++) {
@@ -20,12 +20,4 @@ public class Q1 {
         }
         return result;
     }
-
-    public static void main(String[] args){
-        int[] result=   twoSum(new int[]{2,7,11,15},9);
-        for(int r:result){
-            System.out.println(r);
-        }
-    }
-
 }
