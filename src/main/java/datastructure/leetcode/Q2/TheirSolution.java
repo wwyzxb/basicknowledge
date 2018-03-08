@@ -4,7 +4,7 @@ package datastructure.leetcode.Q2;
  * @Author: wuxiaobing
  * @Date 2018/3/8
  **/
-public class MySolution2 {
+public class TheirSolution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode head = new ListNode(0);
         ListNode curr = head;

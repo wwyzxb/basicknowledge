@@ -37,7 +37,7 @@ public class MainTest {
         MySolution mySolution = new MySolution();
         printNode(mySolution.addTwoNumbers(head1.next, head2.next));
 
-        MySolution2 mySolution2 = new MySolution2();
+        TheirSolution mySolution2 = new TheirSolution();
         printNode(mySolution2.addTwoNumbers(head1.next, head2.next));
     }
 }
