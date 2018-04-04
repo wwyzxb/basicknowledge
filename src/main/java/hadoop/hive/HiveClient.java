@@ -1,5 +1,9 @@
 package hadoop.hive;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.hadoop.hive.conf.HiveConf;
@@ -13,6 +17,7 @@ import org.junit.Test;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class HiveClient {
     @Test
@@ -22,8 +27,8 @@ public class HiveClient {
         hiveConf.addResource("hive-site.xml");
         IMetaStoreClient client = new HiveMetaStoreClient(hiveConf);
         List<String> databases = client.getAllDatabases();
-        if (databases != null && databases.size() != 0) {
-            System.out.println(databases.get(0));
+        if (Objects.nonNull(databases) && databases.size() != 0) {
+            System.out.println(Iterables.getFirst(databases, ""));
         }
     }
 
@@ -54,14 +59,29 @@ public class HiveClient {
                 }
             }
         }
+        int count=0;
+        printEqualNums(phoenixTableList,count);
+        System.out.println(Joiner.on(":").skipNulls().join(hiveTables.size(), phoenixTables.size()));
+        List<String> tableNames = client.getAllTables("cn_nubia_cloud");
+        System.out.println(tableNames.size());
 
-        System.out.println(hiveTables.size() + ":" + phoenixTables.size());
+    }
+
+    private void printEqualNums(List<Table> phoenixTableList, int count ){
+        for(Table table:phoenixTableList){
+            String dbAndTableName=table.getDbName()+"."+table.getTableName();
+            String phoenixTableName = table.getParameters().get("phoenix.table.name").toLowerCase();
+            if(dbAndTableName.equals(phoenixTableName)){
+                count++;
+            }
+        }
+        System.out.println(count);
+
     }
 
     private void praseCols(Table table, Map<String, Map<String, String>> result) {
-        if (table == null) return;
-        if (table == result) return;
-        String fullName = table.getDbName() + "." + table.getTableName();
+        if (Objects.isNull(table)) return;
+        String fullName = Joiner.on(".").skipNulls().join(table.getDbName(), table.getTableName());
         if (table.getParameters().containsKey("phoenix.table.name")) {
             fullName = table.getParameters().get("phoenix.table.name");
         }
@@ -79,13 +99,14 @@ public class HiveClient {
 
     private Map<String, String> replaceColNames(Map<String, String> cols, Table table) {
         String colsMapValue = table.getParameters().get("phoenix.column.mapping").replaceAll("\n", "").replaceAll(" ", "").replaceAll("\r", "");
-        String[] pairs = colsMapValue.split(",");
+        List<String> pairs = Splitter.on(",").splitToList(colsMapValue);
         Map<String, String> newCols = Maps.newHashMap();
         for (String pair : pairs) {
-            String[] colMap = pair.split(":");
-            String hiveCol = colMap[0];
-            String phoenixCol = colMap[1];
-            if (cols.get(hiveCol) == null) {
+            List<String> colMap = Splitter.on(":").splitToList(pair);
+            Preconditions.checkState(colMap.size() == 2, "phoenix column missed");
+            String hiveCol = Iterables.getFirst(colMap, "");
+            String phoenixCol = Iterables.getLast(colMap);
+            if (Objects.isNull(cols.get(hiveCol))) {
                 System.out.println(cols.get(hiveCol));
             }
             newCols.put(phoenixCol, cols.get(hiveCol));
