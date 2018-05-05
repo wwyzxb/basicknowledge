@@ -10,7 +10,7 @@ import java.util.concurrent.TimeoutException;
 public class RabbitConnection {
     private static Connection connection;
     private static ConnectionFactory factory;
-    private static String hostPorts = "10.206.19.188:5672";
+    private static String hostPorts = "10.206.19.180:5672";
     private static String username = "admin";
     private static String password = "admin123";
 

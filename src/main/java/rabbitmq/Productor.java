@@ -25,7 +25,7 @@ public class Productor {
             // 2.建立一个名为hello的队列
             channel.queueDeclare("hello", false, false, false, null);
             // 3.向队列hello中发送Hello Test消息（这里的hello是路由键，与队列名相同）
-            channel.basicPublish("", "hello", null, "Hello Test".getBytes());
+            channel.basicPublish("", "hello", null, "Hello SolutionTest".getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
