@@ -113,7 +113,7 @@ public class PhoenixUtils {
 
     public static void main(String[] args) {
 
-        List<Map<String, String>> list = queryData("select * from studentinfo limit 100");
+        List<Map<String, String>> list = queryData("select * from DALARAN.VERSION_DEVICE_STAT limit 10");
         System.out.println(list);
     }
 }
