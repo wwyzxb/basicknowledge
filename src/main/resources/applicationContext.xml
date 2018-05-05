@@ -14,33 +14,39 @@
     <context:component-scan base-package="common.db.jpa.service"/>
     <context:component-scan base-package="guavaapi.cache"/>
 
-    <!--第二步-->
-    <!--定义实体的工厂bean-->
+   <!-- &lt;!&ndash;第二步&ndash;&gt;
+    &lt;!&ndash;定义实体的工厂bean&ndash;&gt;
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="userPU"/>
         <property name="persistenceXmlLocation" value="classpath:persistence.xml"></property>
     </bean>
 
-    <!--第三步-->
-    <!--定义事务管理器-->
+    &lt;!&ndash;第三步&ndash;&gt;
+    &lt;!&ndash;定义事务管理器&ndash;&gt;
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <!--第四步-->
-    <!--定义repository接口的存放目录-->
-    <!--定义接口实现的后缀，通常用Impl-->
-    <!--定义实体工厂的引用-->
-    <!--定义事务管理器的引用-->
+    &lt;!&ndash;第四步&ndash;&gt;
+    &lt;!&ndash;定义repository接口的存放目录&ndash;&gt;
+    &lt;!&ndash;定义接口实现的后缀，通常用Impl&ndash;&gt;
+    &lt;!&ndash;定义实体工厂的引用&ndash;&gt;
+    &lt;!&ndash;定义事务管理器的引用&ndash;&gt;
     <jpa:repositories base-package="common.db.jpa.repository"
                       repository-impl-postfix="Impl"
                       entity-manager-factory-ref="entityManagerFactory"
                       transaction-manager-ref="transactionManager"/>
 
 
-    <!--第五步-->
-    <!--声明采用注解的方式申明事务-->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    &lt;!&ndash;第五步&ndash;&gt;
+    &lt;!&ndash;声明采用注解的方式申明事务&ndash;&gt;
+    <tx:annotation-driven transaction-manager="transactionManager"/>-->
 
+    <bean id="car" class="spring.Car" init-method="init" destroy-method="destroy">
+        <property name="brand" value="Audi"/>
+        <property name="price" value="20000.0"/>
+    </bean>
+
+    <bean id="postProcessor" class="spring.CarPostProcessor"/>
 
 </beans>

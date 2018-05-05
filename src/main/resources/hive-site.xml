@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>hive.exec.scratchdir</name>
+    <value>/tmp/hive</value>
+  </property>
+  <property>
+    <name>hive.downloaded.resources.dir</name>
+    <value>/tmp/${hive.session.id}_resources</value>
+    <description>Temporary local directory for added resources in the remote file system.</description>
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionUserName</name>
+    <value>root</value>
+    <description>Username to use against metastore database</description>
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionPassword</name>
+    <value>EMRroot1234</value>
+    <description>password to use against metastore database</description>
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionURL</name>
+    <value>jdbc:mysql://localhost/hivemeta?createDatabaseIfNotExist=true&amp;characterEncoding=UTF-8</value>
+    <description>JDBC connect string for a JDBC metastore</description>
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionDriverName</name>
+    <value>com.mysql.jdbc.Driver</value>
+    <description>Driver class name for a JDBC metastore</description>
+  </property>
+  <property>
+    <name>hive.server2.logging.operation.enabled</name>
+    <value>true</value>
+    <description>When true, HS2 will save operation logs and make them available for clients</description>
+  </property>
+  
+  <property>
+    <name>hive.metastore.uris</name>
+    <value>thrift://emr-header-1:9083</value>
+    <description>JDBC connect string for a JDBC metastore</description>
+  </property>
+
+  <property>
+     <name>hive.server2.enable.impersonation</name>
+     <value>true</value>
+  </property>
+
+  <property>
+    <name>hive.jobname.length</name>
+    <value>10</value>
+    <description>max jobname length</description>
+  </property>
+
+  <property>
+    <name>hive.mapjoin.localtask.max.memory.usage</name>
+    <value>0.999</value>
+  </property>
+
+
+<!--权限配置-->
+<property>  
+  <name>hive.users.in.admin.role</name>  
+  <value>hadoop</value>  
+</property>
+
+<property>
+    <name>hive.server2.enable.doAs</name>
+    <value>false</value>
+    <description>
+      Setting this property to true will have HiveServer2 execute
+      Hive operations as the user making the calls to it.
+    </description>
+</property>
+
+  <property>
+    <name>hive.security.authorization.manager</name>
+    <value>org.apache.hadoop.hive.ql.security.authorization.plugin.sqlstd.SQLStdConfOnlyAuthorizerFactory</value>
+    <description>
+      The Hive client authorization manager class name. The user defined authorization class should implement 
+      interface org.apache.hadoop.hive.ql.security.authorization.HiveAuthorizationProvider.
+    </description>
+  </property>
+
+  <property>
+    <name>hive.security.authorization.sqlstd.confwhitelist.append</name>
+    <value>^(io.seqfile.compression.type|oozie.*)$</value>
+    <description>
+      List of comma separated Java regexes, to be appended to list set in
+      hive.security.authorization.sqlstd.confwhitelist. Using this list instead
+      of updating the original list means that you can append to the defaults
+      set by SQL standard authorization instead of replacing it entirely.
+    </description>
+  </property>
+  <property>
+    <name>hive.default.fileformat</name>
+    <value>ORC</value>
+  </property>
+  <property>
+    <name>hive.exec.dynamic.partition</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>hive.exec.dynamic.partition.mode</name>
+    <value>nonstrict</value>
+  </property>
+  <property>
+<name>hive.hwi.listen.port</name>
+  <value>19999</value>
+  <description>This is the port the Hive Web Interface will listen on</description>
+</property>
+<property>
+  <name>hive.aux.jars.path</name>
+  <value>file:///opt/apps/apache-hive-2.0.0-bin/plugin/stat-hive-plugin.jar</value>
+</property>
+
+</configuration>
