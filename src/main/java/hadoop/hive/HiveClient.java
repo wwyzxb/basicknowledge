@@ -6,6 +6,8 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.hadoop.hive.conf.HiveConf;
 import org.apache.hadoop.hive.metastore.HiveMetaStoreClient;
 import org.apache.hadoop.hive.metastore.IMetaStoreClient;
@@ -20,6 +22,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class HiveClient {
+
     @Test
     public void testPrintDB() throws TException {
         HiveConf hiveConf = new HiveConf();
@@ -35,7 +38,7 @@ public class HiveClient {
     @Test
     public void testPrintTables() throws TException {
         HiveConf hiveConf = new HiveConf();
-        hiveConf.setVar(HiveConf.ConfVars.METASTOREURIS, "thrift://emr-header-1:9083");
+        hiveConf.setVar(HiveConf.ConfVars.METASTOREURIS, "thrift://emr-header-1.cluster-dev:9083");
         IMetaStoreClient client = new HiveMetaStoreClient(hiveConf);
         /**1.获得所有的数据库*/
         List<String> dbNames = client.getAllDatabases();
@@ -59,19 +62,59 @@ public class HiveClient {
                 }
             }
         }
-        int count=0;
-        printEqualNums(phoenixTableList,count);
-        System.out.println(Joiner.on(":").skipNulls().join(hiveTables.size(), phoenixTables.size()));
-        List<String> tableNames = client.getAllTables("cn_nubia_cloud");
-        System.out.println(tableNames.size());
+        System.out.println(hiveTableList.size() + phoenixTableList.size());
+    }
+
+    private static final String PHOENIX_TABLE_PARAM_KEY_HANDLER = "storage_handler";
+    private static final String PHOENIX_TABLE_PARAM_VALUE_TABLENAME = "phoenix.table.name";
+    private static final String PHOENIX_TABLE_PARAM_VALUE_HANDLER1 = "com.nubia.stat.hive.NubiaPhoenixStorageHandler";
+    private static final String PHOENIX_TABLE_PARAM_VALUE_HANDLER2 = "org.apache.phoenix.hive.PhoenixStorageHandler";
+
+    @Test
+    public void testGetUnMatchedTables() throws TException {
+        HiveConf hiveConf = new HiveConf();
+        hiveConf.setVar(HiveConf.ConfVars.METASTOREURIS, "thrift://emr-header-1.cluster-dev:9083");
+        IMetaStoreClient client = new HiveMetaStoreClient(hiveConf);
+        List<String> dbNames = client.getAllDatabases();
+        List<Table> phoenixTableList = Lists.newArrayList();
+        Map<String, String> namesMap = Maps.newTreeMap();
+        for (String dbName : dbNames) {
+            /**2.获得数据库中所有的表*/
+            List<String> tableNames = client.getAllTables(dbName);
+            for (String tableName : tableNames) {
+                /**3.通过库名和表名获得表实体*/
+                Table table = client.getTable(dbName, tableName);//获得表实体
+                String storageHandler = table.getParameters().get(PHOENIX_TABLE_PARAM_KEY_HANDLER);
+                storageHandler = storageHandler == null ? "" : storageHandler.trim();
+                /**4.判断当前的表是否为phoenix表*/
+                if (PHOENIX_TABLE_PARAM_VALUE_HANDLER1.equals(storageHandler) || PHOENIX_TABLE_PARAM_VALUE_HANDLER2.equals(storageHandler)) {
+                    phoenixTableList.add(table);
+                    String hiveTableName = Joiner.on(".").join(table.getDbName(), table.getTableName());
+                    String phoenixTableName = table.getParameters().get(PHOENIX_TABLE_PARAM_VALUE_TABLENAME).trim();
+                    if (!hiveTableName.equalsIgnoreCase(phoenixTableName)) {
+                        namesMap.put(hiveTableName, phoenixTableName);
+                        if(hiveTableName.equals("cn_nubia_cloud.p_aliyun_api_details")){
+                            table.setTableName("aliyun_api_details");
+                        }
+                        System.out.println(table.getDbName()+"."+table.getTableName());
+                    }
+                }
+            }
+        }
+
+        Gson GSON = new GsonBuilder().disableHtmlEscaping()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+//        String json = GSON.toJson(namesMap);
+//        System.out.println(json);
 
     }
 
-    private void printEqualNums(List<Table> phoenixTableList, int count ){
-        for(Table table:phoenixTableList){
-            String dbAndTableName=table.getDbName()+"."+table.getTableName();
+
+    private void printEqualNums(List<Table> phoenixTableList, int count) {
+        for (Table table : phoenixTableList) {
+            String dbAndTableName = table.getDbName() + "." + table.getTableName();
             String phoenixTableName = table.getParameters().get("phoenix.table.name").toLowerCase();
-            if(dbAndTableName.equals(phoenixTableName)){
+            if (dbAndTableName.equals(phoenixTableName)) {
                 count++;
             }
         }
