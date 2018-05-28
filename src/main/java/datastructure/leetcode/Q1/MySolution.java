@@ -3,6 +3,9 @@ package datastructure.leetcode.Q1;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * https://leetcode.com/problems/two-sum/description/
+ */
 public class MySolution {
     public int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> temp = new HashMap();
