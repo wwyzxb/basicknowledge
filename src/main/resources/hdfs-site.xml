@@ -1,198 +1,167 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
-<!--
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License. See accompanying LICENSE file.
--->
-
-<!-- Put site-specific property overrides in this file. -->
-
+<?xml version="1.0"?>
 <configuration>
-
   <property>
     <name>dfs.nameservices</name>
     <value>emr-cluster</value>
-  </property>
-
-  <property>
-    <name>dfs.ha.namenodes.emr-cluster</name>
-    <value>nn1,nn2</value>
-  </property>
-
-  <property>
-    <name>dfs.namenode.rpc-address.emr-cluster.nn1</name>
-    <value>emr-header-1:8020</value>
-  </property>
-
-  <property>
-    <name>dfs.namenode.rpc-address.emr-cluster.nn2</name>
-    <value>emr-header-2:8020</value>
-  </property>
-
-  <property>
-    <name>dfs.namenode.http-address.emr-cluster.nn1</name>
-    <value>emr-header-1:50070</value>
-  </property>
-
-  <property>
-    <name>dfs.namenode.http-address.emr-cluster.nn2</name>
-    <value>emr-header-2:50070</value>
-  </property>
-
-  <property>
-    <name>dfs.namenode.shared.edits.dir</name>
-    <value>qjournal://emr-header-1:8485;emr-header-2:8485;emr-header-3:8485/emr-cluster</value>
-  </property>
-
-  <property>
-    <name>dfs.client.failover.proxy.provider.emr-cluster</name>
-    <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
-  </property>
-
-  <property>
-    <name>dfs.ha.fencing.methods</name>
-    <value>shell(/bin/true)</value>
-  </property>
-
-  <property>
-    <name>dfs.ha.automatic-failover.enabled</name>
-    <value>true</value>
-  </property>
-
-  <property>
-    <name>ha.zookeeper.quorum</name>
-    <value>emr-header-1:2181,emr-header-2:2181,emr-header-3:2181</value>
-  </property>
-
-  <property>
-    <name>dfs.journalnode.edits.dir</name>
-    <value>/data/hdfs/journal</value>
-  </property>
-
-  <property>
-    <name>dfs.replication</name>
-    <value>2</value>
-    <description>Default block replication.
-    The actual number of replications can be specified when the file is created.
-    The default is used if replication is not specified in create time.
-    </description>
-  </property>
-
-  <property>
-     <name>dfs.permissions.superusergroup</name>
-     <value>hadoop</value>
-     <description>The name of the group of super-users.</description>
-  </property>
-
-  <property>
-    <name>dfs.permissions.enabled</name>
-    <value>false</value>
-  </property>
-
-  <property>
-    <name>dfs.namenode.name.dir</name>
-    <value>file:///data/hdfs/name</value>
-  </property>
-  <property>
-    <name>dfs.namenode.edits.dir</name>
-    <value>file:///data/hdfs/edits</value>
-  </property>
-  <property>
-    <name>dfs.namenode.resource.du.reserved</name>
-    <value>1073741824</value>
-  </property>
-
-  <property>
-    <name>dfs.namenode.handler.count</name>
-    <value>10</value>
-  </property>
-  <property>
-    <name>dfs.support.append</name>
-    <value>true</value>
-  </property>
-  <property>
-    <name>dfs.http.address</name>
-    <value>0.0.0.0:50070</value>
   </property>
   <property>
     <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
     <value>false</value>
   </property>
-
-<!-- DATANODE -->
   <property>
     <name>dfs.datanode.data.dir</name>
-    <value>
-    	file:///data/datanode
-    </value>
+    <value>file:///data/hdfs</value>
   </property>
   <property>
-    <name>dfs.datanode.data.dir.perm</name>
-    <value>770</value>
+    <name>dfs.namenode.rpc-address.emr-cluster.nn1</name>
+    <value>emr-header-1.cluster-dev:8020</value>
   </property>
   <property>
-    <name>dfs.datanode.du.reserved</name>
-    <value>1073741824</value>
-  </property>
-
-<!-- SECONDARYNAMENODE -->
-  <property>
-    <name>dfs.namenode.checkpoint.dir</name>
-    <value>
-      file:///data/hdfs/namesecondary
-    </value>
-  </property>
-
-<!-- OSS FileSystem -->
-  <property>
-    <name>fs.ossbfs.impl</name>
-    <value>com.aliyun.fs.oss.blk.OssFileSystem</value>
-  </property>
-  <property>
-    <name>fs.oss.impl</name>
-    <value>com.aliyun.fs.oss.nat.NativeOssFileSystem</value>
-  </property>
-  <property>
-    <name>fs.ossn.impl</name>
-    <value>com.aliyun.fs.oss.nat.NativeOssFileSystem</value>
-  </property>
-  <property>
-    <name>fs.oss.buffer.dirs</name>
-    <value>file:///data/oss</value>
-  </property>
-  <property>
-    <name>dfs.namenode.acls.enabled</name>
-    <value>true</value>
-  </property>
-  <property>
-    <name>fs.oss.impl.disable.cache</name>
-    <value>true</value>
-  </property>
-
-<!-- bind host-->
-  <property>
-    <name>dfs.namenode.rpc-bind-host</name>
-    <value>0.0.0.0</value>
-  </property>
-  <property>
-    <name>dfs.namenode.servicerpc-bind-host</name>
-    <value>0.0.0.0</value>
+    <name>dfs.client.failover.proxy.provider.emr-cluster</name>
+    <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
   </property>
   <property>
     <name>dfs.namenode.http-bind-host</name>
     <value>0.0.0.0</value>
   </property>
   <property>
+    <name>dfs.namenode.rpc-address.emr-cluster.nn2</name>
+    <value>emr-header-2.cluster-dev:8020</value>
+  </property>
+  <property>
+    <name>fs.oss.buffer.dirs</name>
+    <value>file:///data/oss</value>
+  </property>
+  <property>
+    <name>dfs.namenode.servicerpc-bind-host</name>
+    <value>0.0.0.0</value>
+  </property>
+  <property>
+    <name>dfs.webhdfs.enabled</name>
+    <value>false</value>
+  </property>
+  <property>
+    <name>dfs.permissions.superusergroup</name>
+    <value>hadoop</value>
+  </property>
+  <property>
+    <name>dfs.block.replicator.default.local.rack</name>
+    <value>false</value>
+  </property>
+  <property>
+    <name>dfs.support.append</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>dfs.datanode.data.dir.perm</name>
+    <value>755</value>
+  </property>
+  <property>
+    <name>dfs.ha.fencing.methods</name>
+    <value>shell(/bin/true)</value>
+  </property>
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>file:///data/hdfs/name</value>
+  </property>
+  <property>
+    <name>dfs.namenode.shared.edits.dir</name>
+    <value>qjournal://emr-worker-1.cluster-dev:8485;emr-header-2.cluster-dev:8485;emr-header-1.cluster-dev:8485/emr-cluster</value>
+  </property>
+  <property>
+    <name>dfs.namenode.http-address</name>
+    <value>50070</value>
+  </property>
+  <property>
+    <name>dfs.datanode.balance.bandwidthPerSec</name>
+    <value>10485760</value>
+  </property>
+  <property>
+    <name>fs.oss.impl.disable.cache</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>dfs.datanode.du.reserved</name>
+    <value>1073741824</value>
+  </property>
+  <property>
+    <name>mapreduce.job.acl-view-job</name>
+    <value>*</value>
+  </property>
+  <property>
+    <name>dfs.namenode.http-address.emr-cluster.nn1</name>
+    <value>emr-header-1.cluster-dev:50070</value>
+  </property>
+  <property>
+    <name>dfs.permissions.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>dfs.namenode.http-address.emr-cluster.nn2</name>
+    <value>emr-header-2.cluster-dev:50070</value>
+  </property>
+  <property>
+    <name>fs.oss.impl</name>
+    <value>com.aliyun.fs.oss.nat.NativeOssFileSystem</value>
+  </property>
+  <property>
+    <name>dfs.ha.automatic-failover.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>dfs.hosts.exclude</name>
+    <value>/etc/ecm/hadoop-conf/dfs.exclude</value>
+  </property>
+  <property>
+    <name>dfs.namenode.edits.dir</name>
+    <value>file:///data/hdfs/edits</value>
+  </property>
+  <property>
+    <name>dfs.ha.namenodes.emr-cluster</name>
+    <value>nn1,nn2</value>
+  </property>
+  <property>
+    <name>dfs.namenode.rpc-bind-host</name>
+    <value>0.0.0.0</value>
+  </property>
+  <property>
+    <name>dfs.journalnode.edits.dir</name>
+    <value>/data/hdfs/journal</value>
+  </property>
+  <property>
+    <name>dfs.namenode.acls.enabled</name>
+    <value>false</value>
+  </property>
+  <property>
+    <name>dfs.replication</name>
+    <value>2</value>
+  </property>
+  <property>
+    <name>dfs.namenode.handler.count</name>
+    <value>10</value>
+  </property>
+  <property>
+    <name>dfs.namenode.checkpoint.dir</name>
+    <value>file:///data/hdfs/namesecondary</value>
+  </property>
+  <property>
+    <name>ha.zookeeper.quorum</name>
+    <value>emr-header-2.cluster-dev,emr-header-1.cluster-dev,emr-worker-1.cluster-dev</value>
+  </property>
+  <property>
     <name>dfs.namenode.https-bind-host</name>
     <value>0.0.0.0</value>
+  </property>
+  <property>
+    <name>dfs.http.address</name>
+    <value>0.0.0.0:50070</value>
+  </property>
+  <property>
+    <name>dfs.namenode.resource.du.reserved</name>
+    <value>1073741824</value>
+  </property>
+  <property>
+    <name>dfs.datanode.failed.volumes.tolerated</name>
+    <value>15</value>
   </property>
 </configuration>

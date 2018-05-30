@@ -1,4 +1,4 @@
-package common.utils;
+package utils;
 
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
@@ -26,7 +26,13 @@ public class DateUtils {
         return format.format(ms);
     }
 
+    public static String convertTimeStamp(long timestamp) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(timestamp);
+    }
+
     public static void main(String[] args) {
-        System.out.println(convertSecondToHHmmss(8640));
+//        System.out.println(convertSecondToHHmmss(8640));
+        System.out.println(convertTimeStamp(System.currentTimeMillis()));
     }
 }

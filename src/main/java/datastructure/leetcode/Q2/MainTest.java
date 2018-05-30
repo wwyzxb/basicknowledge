@@ -38,6 +38,6 @@ public class MainTest {
         printNode(mySolution.addTwoNumbers(head1.next, head2.next));
 
         TheirSolution mySolution2 = new TheirSolution();
-        printNode(mySolution2.addTwoNumbers(head1.next, head2.next));
+        printNode(mySolution2.addTwoNumbers1(head1.next, head2.next));
     }
 }

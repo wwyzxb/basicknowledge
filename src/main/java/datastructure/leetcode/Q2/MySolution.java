@@ -18,23 +18,29 @@ public class MySolution {
         ListNode cur = head;
 
         while (cur1 != null && cur2 != null) {
-            int sum = cur1.val + cur2.val;
+            int sum = cur1.val + cur2.val;  // 求和
+            //如果上一次结果大于10，则标记为true，表示当前和需要加1
             if (moreThenTen) {
                 sum++;
             }
+            //如果当前的和大于等于10，则需要标记是否要进一位
             if (sum >= 10) {
                 moreThenTen = true;
             } else {
                 moreThenTen = false;
             }
+            //取余获得个位数
             cur.next = new ListNode(sum % 10);
+            //下标需要下移一位
             cur = cur.next;
             cur1 = cur1.next;
             cur2 = cur2.next;
         }
 
+        //处理较长的链表
         cur = solveRemian(cur, cur1);
         cur = solveRemian(cur, cur2);
+
         if (moreThenTen) {
             cur.next = new ListNode(1);
         }
