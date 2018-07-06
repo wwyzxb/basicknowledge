@@ -31,13 +31,25 @@ public class SortAlgorithmTest {
     @Test
     public void insertSort() throws Exception {
         sort.insertSort(array);
-        System.out.println(convertArrayToList(array));
+        System.out.println("insertSort:" + convertArrayToList(array));
     }
 
     @Test
     public void shellInsert() throws Exception {
         sort.shellInsert(array);
-        System.out.println(convertArrayToList(array));
+        System.out.println("shellInsert:" + convertArrayToList(array));
+    }
+
+    @Test
+    public void selectSort() throws Exception {
+        sort.selectSort(array);
+        System.out.println("selectSort:" + convertArrayToList(array));
+    }
+
+    @Test
+    public void heapSort() throws Exception {
+        sort.heapSort(array);
+        System.out.println("heapSort:" + convertArrayToList(array));
     }
 
 }
