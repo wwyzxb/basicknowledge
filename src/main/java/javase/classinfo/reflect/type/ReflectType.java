@@ -126,7 +126,7 @@ public class ReflectType<K extends Serializable & Cloneable> {
     }
 
     public static void gitTest(){
-        System.out.println("this is a new test from vincent");
+        System.out.println("this is a new udclassloader from vincent");
     }
 
     public static void main(String[] args) throws NoSuchFieldException, NoSuchMethodException {

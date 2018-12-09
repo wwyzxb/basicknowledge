@@ -19,7 +19,7 @@ public class UserTest {
         System.out.println(user.getId());
 
         Method method = clazz.getDeclaredMethod("say", String.class);
-//        method.setAccessible(true);//关闭安全性检查
+        method.setAccessible(true);//关闭安全性检查
         method.invoke(clazz.newInstance(), "Vincent");//调用private方法
     }
 }

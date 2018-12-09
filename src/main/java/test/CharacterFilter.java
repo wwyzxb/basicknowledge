@@ -29,7 +29,7 @@ public class CharacterFilter {
     private void readFileToContext(Map<String, String> context) {
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader(new File("C:\\test.txt")));
+            reader = new BufferedReader(new FileReader(new File("C:\\udclassloader.txt")));
             String line = reader.readLine();
             while (line != null) {
                 String[] pair = line.split(" ");

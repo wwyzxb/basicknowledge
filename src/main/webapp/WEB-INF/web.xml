@@ -4,22 +4,25 @@
 
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
-    <servlet>
+    <!--<servlet>
         <servlet-name>viewCountServlet</servlet-name>
-        <servlet-class>servlet.count.ViewCountServlet</servlet-class>
+        <servlet-class>servlet.cookies.CookieHandleServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>viewCountServlet</servlet-name>
         <url-pattern>/viewcount</url-pattern>
-    </servlet-mapping>
-    <filter>
-        <filter-name>viewCountFilter</filter-name>
-        <filter-class>servlet.count.ViewCountFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>viewCountFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </servlet-mapping>-->
+    <!--<filter>-->
+        <!--<filter-name>viewCountFilter</filter-name>-->
+        <!--<filter-class>servlet.count.ViewCountFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>viewCountFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+    <listener>
+        <listener-class>servlet.listener.MyRequestListener</listener-class>
+    </listener>
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/jsp/404.jsp</location>

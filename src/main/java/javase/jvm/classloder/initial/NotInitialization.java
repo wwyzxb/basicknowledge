@@ -14,6 +14,6 @@ public class NotInitialization {
 
 class ClassTest{
     static {
-        System.out.println("I am a class test...");
+        System.out.println("I am a class udclassloader...");
     }
 }

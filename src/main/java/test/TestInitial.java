@@ -18,7 +18,7 @@ class Test{
     }
 
     public Test() {
-        System.out.println("test constructor...");
+        System.out.println("udclassloader constructor...");
     }
 }
 
@@ -26,7 +26,7 @@ public class TestInitial {
     public static void main(String[] args) throws ClassNotFoundException {
 //        System.out.println(SolutionTest.staticNum);
 //        System.out.println(SolutionTest.funNum);
-//        SolutionTest test=new SolutionTest();
+//        SolutionTest udclassloader=new SolutionTest();
 //        Class clazz=SolutionTest.class;
         Class clazz=Class.forName("test.Test");
 

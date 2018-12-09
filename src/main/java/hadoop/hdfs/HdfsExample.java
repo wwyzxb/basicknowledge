@@ -5,13 +5,13 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.Test;
-import utils.DateUtils;
 
 import java.io.IOException;
 
 public class HdfsExample {
     static {
         System.setProperty("HADOOP_USER_NAME", "wuxb");
+        System.setProperty("hadoop.home.dir", "D:\\study\\hadoop-2.7.2");
     }
 
     @Test
@@ -28,7 +28,7 @@ public class HdfsExample {
                         fileStatus.getReplication(),
                         fileStatus.getOwner(),
                         fileStatus.getGroup(),
-                        DateUtils.convertTimeStamp(fileStatus.getModificationTime()),
+                        fileStatus.getModificationTime(),
                         fileStatus.getPath().toString());
                 System.out.println(result);
             }
@@ -42,12 +42,12 @@ public class HdfsExample {
 
     @Test
     public void testCreatFileOnHDFS() throws IOException {
-        String message = "This is a test!";
+        String message = "This is a udclassloader!";
         byte[] bytes = Bytes.toBytes(message);
         FileSystem fs = null;
         try {
             Configuration conf = new Configuration();
-            Path myPath = new Path("/user/wxb/test.txt");
+            Path myPath = new Path("/user/wxb/udclassloader.txt");
             fs = FileSystem.get(conf);
             FSDataOutputStream fsDataOutputStream = fs.create(myPath);
             fsDataOutputStream.write(bytes, 0, bytes.length);
@@ -65,7 +65,7 @@ public class HdfsExample {
         byte[] bytes = new byte[1024];
         try {
             Configuration conf = new Configuration();
-            Path myPath = new Path("/user/wxb/test.txt");
+            Path myPath = new Path("/user/wxb/udclassloader.txt");
             fs = FileSystem.get(conf);
             FSDataInputStream fsDataInputStream = fs.open(myPath);
             int len = 0;

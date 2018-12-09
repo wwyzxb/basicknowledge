@@ -1,14 +1,14 @@
-package javase.object;
+package designpartten.singleton;
 
 /**
  * @Author Vincent
  * @Date 2017/11/4 14:23
  */
-public class ThisTest {
+public class UnsafeSingleton {
     private int i;
-    private static ThisTest instance;
+    private static UnsafeSingleton instance;
 
-    private ThisTest increament() {
+    private UnsafeSingleton increament() {
         i++;
         //这里的this关键字返回了对当前对象的引用
         return this;
@@ -19,9 +19,9 @@ public class ThisTest {
      *
      * @return
      */
-    private static ThisTest creatObject() {
+    private static UnsafeSingleton creatObject() {
         if (instance == null) {
-            instance = new ThisTest();
+            instance = new UnsafeSingleton();
         }
         return instance;
     }
@@ -29,5 +29,8 @@ public class ThisTest {
     public static void main(String[] args) {
         //3
         System.out.println(creatObject().increament().increament().increament().i);
+
+
     }
+
 }

@@ -16,7 +16,7 @@ public class FilterEmptyStr {
     public List<String> filter(List<String> list, Predicate<String> predicate) {
         List<String> resultList = new ArrayList<>();
         for (String str : list) {
-            /**test()函数的具体逻辑交给Lambda表达式去实现*/
+            /**udclassloader()函数的具体逻辑交给Lambda表达式去实现*/
             if (predicate.test(str)) {
                 resultList.add(str);
             }

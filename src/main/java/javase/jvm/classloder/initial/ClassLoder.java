@@ -38,7 +38,7 @@ class InitialClass {
     public static final int c = returnVal();
 
     public static void test() {
-        System.out.println("invoke method:test()...");
+        System.out.println("invoke method:udclassloader()...");
     }
 
     public static int returnVal() {

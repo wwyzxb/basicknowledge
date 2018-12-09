@@ -27,7 +27,7 @@ public class HiveClient {
     public void testPrintDB() throws TException {
         HiveConf hiveConf = new HiveConf();
 //        hiveConf.setVar(HiveConf.ConfVars.METASTOREURIS, "thrift://emr-header-1:9083");
-        hiveConf.addResource("hive-site.xml");
+        hiveConf.addResource("hive-site-company.xml");
         IMetaStoreClient client = new HiveMetaStoreClient(hiveConf);
         List<String> databases = client.getAllDatabases();
         if (Objects.nonNull(databases) && databases.size() != 0) {

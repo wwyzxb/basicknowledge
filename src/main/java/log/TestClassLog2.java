@@ -10,6 +10,6 @@ import org.slf4j.LoggerFactory;
 public class TestClassLog2 {
     private static Logger logger= LoggerFactory.getLogger("TestClassLog2");
     public static void main(String[] args){
-        logger.info("this is a class log test:print {}",TestClassLog2.class.getSimpleName());
+        logger.info("this is a class log udclassloader:print {}",TestClassLog2.class.getSimpleName());
     }
 }
