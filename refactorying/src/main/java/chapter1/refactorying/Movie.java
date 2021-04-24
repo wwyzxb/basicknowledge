@@ -1,5 +1,6 @@
 package chapter1.refactorying;
 
+import chapter1.refactorying.price.Price;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,16 +11,24 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Movie {
-    public static final int CHILDRENS = 2;
     public static final int REGULAR = 0;
     public static final int NEW_RELEASE = 1;
+    public static final int CHILDREN = 2;
 
     private String title;
-    private int priceCode;
+    private Price price;
 
-    public Movie(String title, int priceCode) {
+    public Movie(String title, Price price) {
         this.title = title;
-        this.priceCode = priceCode;
+        this.price = price;
+    }
+
+    double getCharge(int daysRented) {
+        return price.getCharge(daysRented);
+    }
+
+    int getFrequentRenterPoints(int daysRented) {
+        return price.getFrequentRenterPoints(daysRented);
     }
 
 }

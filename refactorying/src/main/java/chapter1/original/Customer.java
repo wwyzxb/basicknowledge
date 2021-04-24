@@ -12,7 +12,7 @@ import java.util.Vector;
 public class Customer {
     @Getter
     private String name;
-    private Vector rentals = new Vector();
+    private Vector<Rental> rentals = new Vector<Rental>();
 
     public Customer(String name) {
         this.name = name;
@@ -25,11 +25,11 @@ public class Customer {
     public String statement() {
         double totalAmount = 0;
         int frequentRenterPoints = 0;
-        Enumeration rentalsEnumeration = rentals.elements();
+        Enumeration<Rental> rentalsEnumeration = rentals.elements();
         String result = "Rental Record for " + getName() + "\n";
         while (rentalsEnumeration.hasMoreElements()) {
             double thisAmount = 0;
-            Rental each = (Rental) rentalsEnumeration.nextElement();
+            Rental each = rentalsEnumeration.nextElement();
 
             switch (each.getMovie().getPriceCode()) {
                 case Movie.REGULAR:
@@ -41,7 +41,7 @@ public class Customer {
                 case Movie.NEW_RELEASE:
                     thisAmount += each.getDaysRented() * 3;
                     break;
-                case Movie.CHILDRENS:
+                case Movie.CHILDREN:
                     thisAmount += 1.5;
                     if (each.getDaysRented() > 3) {
                         thisAmount += (each.getDaysRented() - 3) * 1.5;

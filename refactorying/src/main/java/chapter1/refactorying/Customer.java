@@ -12,7 +12,7 @@ import java.util.Vector;
 public class Customer {
     @Getter
     private String name;
-    private Vector rentals = new Vector();
+    private Vector<Rental> rentals = new Vector<>();
 
     public Customer(String name) {
         this.name = name;
@@ -23,22 +23,22 @@ public class Customer {
     }
 
     public String statement() {
-        Enumeration rentalsEnumeration = rentals.elements();
-        String result = "Rental Record for " + getName() + "\n";
+        Enumeration<Rental> rentalsEnumeration = rentals.elements();
+        StringBuilder result = new StringBuilder("Rental Record for " + getName() + "\n");
         while (rentalsEnumeration.hasMoreElements()) {
-            Rental each = (Rental) rentalsEnumeration.nextElement();
-            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
+            Rental each = rentalsEnumeration.nextElement();
+            result.append("\t").append(each.getMovie().getTitle()).append("\t").append(each.getCharge()).append("\n");
         }
-        result += "Amount owed is " + getTotalCharge() + "\n";
-        result += "You earned " + getFrequentRenterPoints() + " frequent renter points";
-        return result;
+        result.append("Amount owed is ").append(getTotalCharge()).append("\n");
+        result.append("You earned ").append(getFrequentRenterPoints()).append(" frequent renter points");
+        return result.toString();
     }
 
     private double getTotalCharge() {
         double result = 0;
-        Enumeration rentalsEnumeration = rentals.elements();
+        Enumeration<Rental> rentalsEnumeration = rentals.elements();
         while (rentalsEnumeration.hasMoreElements()) {
-            Rental each = (Rental) rentalsEnumeration.nextElement();
+            Rental each = rentalsEnumeration.nextElement();
             result += each.getCharge();
         }
         return result;
@@ -47,9 +47,9 @@ public class Customer {
 
     private int getFrequentRenterPoints() {
         int result = 0;
-        Enumeration rentalsEnumeration = rentals.elements();
+        Enumeration<Rental> rentalsEnumeration = rentals.elements();
         while (rentalsEnumeration.hasMoreElements()) {
-            Rental each = (Rental) rentalsEnumeration.nextElement();
+            Rental each = rentalsEnumeration.nextElement();
             result += each.getFrequentRenterPoints();
         }
         return result;
