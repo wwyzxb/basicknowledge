@@ -77,6 +77,8 @@
 
   - 引入State模式花了我不少力气，值得吗？这么做的收获是：如果我要修改任何与价格有关的行为，或是添加新的定价标准，或是加入其他取决于价格的行为，程序的修改会容易得多。
 
+    ![]()
+    
     > [设计模式之策略模式和状态模式（strategy pattern & state pattern）](https://www.cnblogs.com/yssjun/p/11116652.html)
     >
     >  [策略模式和状态模式的区别与对比](https://www.jianshu.com/p/578dcf292491)
