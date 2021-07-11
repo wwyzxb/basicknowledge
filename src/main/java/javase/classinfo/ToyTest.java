@@ -33,11 +33,10 @@ public class ToyTest {
          * cc.isInterface():判断当前类是否为接口
          * cc.getSimpleName()：会删除简单的类名信息
          * */
-        System.out.println("Class name:" + cc.getName() + " is interface?-->"
-                + cc.isInterface());
+        System.out.println("**********printInfoClass**********");
+        System.out.println("Class name:" + cc.getName() + " is interface?-->" + cc.isInterface());
         System.out.println("Simple name:" + cc.getSimpleName());
         System.out.println("Canonical name:" + cc.getCanonicalName());
-        System.out.println("**********我是华丽的分隔符**********");
 
     }
 
