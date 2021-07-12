@@ -48,12 +48,13 @@ public class ClassDemo {
 
     }
 
-    public static void main(String[] args){
-        Class clazz=ClassDemo.class;
-        Field[] fields=clazz.getDeclaredFields();
-        for(Field field:fields){
-            if(field.getGenericType() instanceof ParameterizedType){
-               System.out.println(((ParameterizedType) field.getGenericType()).getRawType().getTypeName());
+    public static void main(String[] args) {
+        Class clazz = ClassDemo.class;
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            if (field.getGenericType() instanceof ParameterizedType) {
+                System.out.println(field.toString());
+                System.out.println(((ParameterizedType) field.getGenericType()).getRawType().getTypeName());
             }
         }
 
